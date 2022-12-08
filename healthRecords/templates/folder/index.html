@@ -1,0 +1,35 @@
+{% extends 'health_base.html' %}
+
+{% block content %}
+
+    <div class="col-12 py-4 title">
+        <h2>
+            MANAGE AND SHARE YOUR HEALTH RECORDS
+        </h2>
+    </div>
+
+    <div class="index col-12 col-sm-12 col-md-6 col-lg-4">
+        <a class="mt-2" href="{% url 'health:create'  %}">
+            <div class="rounded text-center content-box add m-1 p-5">
+                <h3>Add folder</h3>
+                <span class="mt-2 details-button">Let's go!</span>
+            </div>
+        </a>
+    </div>
+    
+    <!-- DIVIDER -->
+    <div class="divider col-12"></div>
+
+    {% if folders %}
+        {% for folder in folders %}
+            <div class="index col-12 col-sm-12 col-md-6 col-lg-4">
+                <a class="mt-2" href="{% url 'health:indexRecord' folder.id %}">
+                    <div class="rounded text-center content-box folder m-1 p-5">
+                        <h3>{{ folder.title }}</h3>
+                        <span class="details-button">Details</span>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

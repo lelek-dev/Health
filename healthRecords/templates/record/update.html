@@ -1,0 +1,39 @@
+{% extends 'health_base.html' %}
+
+{% block content %}
+
+{% include 'record/snippets/folder.html' with folder=folder %}
+{% include 'record/snippets/breadcrumb.html' with breadcrumb=breadcrumb %}
+
+    <div class="col-12 text-center">
+        <h2>Update an existing record</h2>
+    </div>
+
+    <div class="col-12 col-sm-12 col-md-9 col-lg-6 col-xl-6">
+        <div class="rounded content-box m-1 p-5">  
+            <form action="{% url 'health:updateRecord' record.id %}" method="post">
+                {% csrf_token %}
+                {{ form }}
+
+                {% include 'timestamps.html' with created=folder.created updated=folder.updated %}
+
+                <input class="btn btn-primary mt-3" type="submit" value="Submit">
+            </form>
+            <div class="delete-box">
+                <a href="{% url 'health:deleteRecord' record.id %}">
+                    <button class="btn btn-delete">
+                        DELETE
+                    </button>
+                </a>
+            </div>
+            <div class="delete-box text-start">
+                <a href="{% url 'health:shareRecord' record.id %}">
+                    <button class="btn btn-primary">
+                        SHARE
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

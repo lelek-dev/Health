@@ -14,3 +14,14 @@ COPY . .
 COPY ./requirements.txt /requirements.txt
 # Install the requirements.txt file in Docker image
 RUN pip install -r /requirements.txt
+
+COPY ./docker-scripts/docker-entrypoint.sh /usr/local/bin/
+COPY ./docker-scripts/wait-for-it.sh /usr/local/bin/
+
+RUN chmod 777 /usr/local/bin/docker-entrypoint.sh && \
+    ln -s usr/local/bin/docker-entrypoint.sh
+
+RUN chmod 777 /usr/local/bin/wait-for-it.sh && \
+    ln -s usr/local/bin/wait-for-it.sh
+
+ENTRYPOINT ["docker-entrypoint.sh"]

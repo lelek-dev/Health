@@ -1,0 +1,17 @@
+{% extends 'health_base.html' %}
+
+{% block content %}
+
+    <div class="col-12 text-center">
+        <h2>Show an existing record</h2>
+    </div>
+
+    <div class="col-12 col-sm-12 col-md-9 col-lg-6 col-xl-6">
+        <div class="rounded content-box m-1 p-5">  
+            <h4>{{record.title}}</h4>
+            <p>{{record.description}}</p>
+            {% include 'timestamps.html' with created=record.created updated=record.updated %}
+        </div>
+    </div>
+    
+{% endblock %}

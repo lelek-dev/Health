@@ -9,12 +9,19 @@
             <a class="nav-link {% if request.path == '/' %} active {% endif %}" href="/">HOME</a>
           </li>
           {% if user.is_authenticated %}
-            <li class="nav-item">
-              <a class="nav-link {% if 'wishManagement/wish' in request.path %} active {% endif %}" href="{% url 'wishlist:index' %}">PERSONAL</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link {% if 'wishManagement/share' in request.path %} active {% endif %}" href="{% url 'wishlist:indexShare' %}">SHARED</a>
-            </li>
+            {% load doctor_tags %}
+            {% if user|is_group:"Doctor" %}
+              <li class="nav-item">
+                <a class="nav-link {% if 'doctor/patients' in request.path %} active {% endif %}" href="{% url 'doctor:index' %}">PATIENTS</a>
+              </li>
+            {% else %}  
+              <li class="nav-item">
+                <a class="nav-link {% if 'health/folder' in request.path %} active {% endif %}" href="{% url 'health:index' %}">PERSONAL</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link {% if 'health/share' in request.path %} active {% endif %}" href="#">SHARED</a>
+              </li>
+            {% endif %}
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 {{ user.username }}

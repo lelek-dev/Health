@@ -1,9 +1,9 @@
 @import url('fonts/anton.css');
 
 :root {
-    --color-primary: #efff006b;
-    --color-secondary: #ffffff26;
-    --color-third: #00fff36b;
+    --color-primary: #00604ccc;
+    --color-secondary: #006f9f96;
+    --color-third: #74bdb9d4;
 }
 
 html, body {
@@ -13,7 +13,7 @@ html, body {
     height: 100%;
 }
 body {
-    background: url('/static/img/bg2.webp') no-repeat center;
+    background: url('/static/img/bg.webp') no-repeat center;
     background-size: cover;
     background-attachment: fixed;
 }
@@ -29,13 +29,15 @@ a:active { text-decoration: none; }
 }
 
 .bg-layer {
-    background-color: #000000d1;
-    color: white;
+    background-color: #ffffff9e;
+    color: black;
     position: fixed;
     width: 100%;
     overflow-y: scroll;
 }
-
+nav.navbar {
+    background-color: var(--color-third);
+}
 .nav-link {
     color: var(--color-primary);
     transition: color .3s ease-in-out, background-color .3s ease-in-out;
@@ -45,9 +47,13 @@ a:active { text-decoration: none; }
     color: white;
   }
 .content-box {
-    background-color: var(--color-secondary);
+    background-color: #7474740f;
     transition: all 0.4s ease; 
 }
+.content-box.folder {
+    background-color: #ebd02e6b;
+}
+
 a .content-box {
     cursor: pointer;
 }
@@ -58,29 +64,29 @@ a .content-box {
     transition: all 0.4s ease; 
 }
 .index:not(.done) .content-box:hover {
-    background-color: #ffffff46;
+    background-color: #7474743d;
 }
 .index:not(.done) .content-box:hover > .details-button {
     transform: translateZ(0) scale(1.05);
 }
 a > .content-box > * {
-    color: white;
+    color: black;
 }
 .content-box .details-button {
-    color: white;
+    color: black;
     font-weight: 600;
-    border: 1px solid white;
+    border: 1px solid black;
     border-radius: 10px;
     padding: 5px 20px;
     display: inline-block;
 }
 .content-box .details-button:hover {
-    color: white;   
+    color: black;   
     font-weight: 700;
 }
 .content-box .btn-primary, form .btn-primary {
-    background-color: white!important;
-    color: black!important;
+    background-color: black!important;
+    color: white!important;
     border: 0px;
 }
 .content-box .btn-delete {
@@ -93,14 +99,14 @@ a > .content-box > * {
 }
 .content-box.heading {
     background-color: var(--color-primary);
-    border-radius: 0.25rem 0 0 0;
+    border-radius: 0.25rem 0 0 0.25rem;
 }
 .content-box.add {
     background-color: var(--color-third);
 }
 .content-box.edit {
     background-color: var(--color-third);
-    border-radius: 0 0.25rem 0 0;
+    border-radius: 0 0.25rem 0.25rem 0;
 }
 .content-box.share_link {
     background-color: var(--color-secondary);
@@ -122,24 +128,24 @@ a > .content-box > * {
 }
 .content-box .form-control, form .form-control{
     background-color: #cdcdcd26;
-    color: white;
+    color: black;
 }
 .content-box .form-control:focus, form .form-control:focus{
     background-color: #cdcdcd54;
-    color: white;
+    color: black;
 }
-.wishit_link a, a.wishit_link {
+.health_link a, a.health_link {
     color: var(--color-primary);
 }
-
-
-
-
 
 /* HOME START */
 .home h2 {
     font-family: Anton;
     font-size: 60pt;
+}
+.title h2 {
+    font-family: Anton;
+    font-size: 50pt;
 }
 .bubble-bg:nth-child(odd) {
     background: url('../img/home/blob.svg') no-repeat center;
@@ -220,37 +226,37 @@ a > .content-box > * {
 
 /* AUTOFILL */
 input:-webkit-autofill {
-    -webkit-text-fill-color: white;
-    -webkit-box-shadow: 0 0 0px 1000px #000000ad inset;
+    -webkit-text-fill-color: black;
+    -webkit-box-shadow: 0 0 0px 1000px #ffffffad inset;
 }
 input:-moz-autofill {
-    -moz-text-fill-color: white;
-    -moz-box-shadow: 0 0 0px 1000px #000000ad inset;
+    -moz-text-fill-color: black;
+    -moz-box-shadow: 0 0 0px 1000px #ffffffad inset;
 }
 input:-o-autofill {
-    -o-text-fill-color: white;
-    -o-box-shadow: 0 0 0px 1000px #000000ad inset;
+    -o-text-fill-color: black;
+    -o-box-shadow: 0 0 0px 1000px #ffffffad inset;
 }
 input:-khtml-autofill {
-    -khtml-text-fill-color: white;
-    -khtml-box-shadow: 0 0 0px 1000px #000000ad inset;
+    -khtml-text-fill-color: black;
+    -khtml-box-shadow: 0 0 0px 1000px #ffffffad inset;
 }
 
 input:focus:-webkit-autofill {
-    -webkit-text-fill-color: white;
-    -webkit-box-shadow: 0 0 0px 1000px #000000ad inset;
+    -webkit-text-fill-color: black;
+    -webkit-box-shadow: 0 0 0px 1000px #ffffffad inset;
 }
 input:focus:-moz-autofill {
-    -moz-text-fill-color: white;
-    -moz-box-shadow: 0 0 0px 1000px #000000ad inset;
+    -moz-text-fill-color: black;
+    -moz-box-shadow: 0 0 0px 1000px #ffffffad inset;
 }
 input:focus:-o-autofill {
-    -o-text-fill-color: white;
-    -o-box-shadow: 0 0 0px 1000px #000000ad inset;
+    -o-text-fill-color: black;
+    -o-box-shadow: 0 0 0px 1000px #ffffffad inset;
 }
 input:focus:-khtml-autofill {
-    -khtml-text-fill-color: white;
-    -khtml-box-shadow: 0 0 0px 1000px #000000ad inset;
+    -khtml-text-fill-color: black;
+    -khtml-box-shadow: 0 0 0px 1000px #ffffffad inset;
 }
 
 /* OFFERS START */

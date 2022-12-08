@@ -1,5 +1,7 @@
-wishit/.env
+health/.env
 *.pyc
 sent_emails/*
 .google-cookie
 */migrations/*
+general.log
+media

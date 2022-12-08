@@ -1,9 +1,16 @@
-{% extends 'wishlist_base.html' %}
+{% extends 'health_base.html' %}
 
 {% block content %}
 
     <div class="col-12 col-sm-12 col-md-12 col-lg-8">
         <h2>Update your user profile</h2>
+            {% load doctor_tags %}
+            {% if user|is_group:"Doctor" %}
+                <div class="col-12 p-2">
+                    <b>Share the following link with your patients. You can manually add every patient who accepts this invite to your patients.</b> 
+                    http://127.0.0.1:8000{% url 'doctor:invite' user.uuid %}
+                </div>
+            {% endif %}
         <div class="rounded content-box m-1 p-5">  
             <form action="{% url 'internalAuth:update' %}" method="post">
                 {% csrf_token %}

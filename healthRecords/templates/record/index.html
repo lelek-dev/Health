@@ -1,0 +1,57 @@
+{% extends 'health_base.html' %}
+
+{% block content %}
+
+{% include 'record/snippets/folder.html' with folder=folder %}
+{% include 'record/snippets/breadcrumb.html' with breadcrumb=breadcrumb %}
+
+    <div class="index col-12 col-sm-12 col-md-6 col-lg-4">
+        <a href="{% url 'health:createSub' folder.id %}">
+            <div class="rounded text-center content-box add m-1 p-5">
+                <h3>Add folder</h3>
+                <span class="mt-2 details-button">Get started</span>
+            </div>
+        </a>
+    </div>
+    <div class="index col-12 col-sm-12 col-md-6 col-lg-4">
+        <a href="{% url 'health:createRecord' folder.id %}">
+            <div class="rounded text-center content-box add m-1 p-5">
+                <h3>Add record</h3>
+                <span class="mt-2 details-button">Get started</span>
+            </div>
+        </a>
+    </div>
+
+    <!-- DIVIDER -->
+    <div class="divider col-12"></div>
+
+    {% if subfolders %}
+        {% for subfolder in subfolders %}
+            <div class="index col-12 col-sm-12 col-md-6 col-lg-4">
+                <a href="{% url 'health:indexRecord' subfolder.id %}">
+                    <div class="rounded text-center content-box folder m-1 p-5">
+                        <h3>{{ subfolder.title }}</h3>
+                        <span class="mt-2 details-button">Details</span>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- DIVIDER -->
+    <div class="divider col-12"></div>
+
+    {% if records %}
+        {% for record in records %}
+            <div class="index col-12 col-sm-12 col-md-6 col-lg-4">
+                <a href="{% url 'health:updateRecord' record.id %}">
+                    <div class="rounded text-center content-box m-1 p-5">
+                        <h3>{{ record.title }}</h3>
+                        <span class="mt-2 details-button">Details</span>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    {% endif %}
+    
+{% endblock %}

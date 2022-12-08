@@ -1,4 +1,4 @@
-{% extends "wishlist_base.html" %}
+{% extends "health_base.html" %}
 
 {% block title %}Log In{% endblock %}
 
@@ -16,12 +16,12 @@
       <input class="form-control" type="password" name="password" id="id_password" required/>
       <label for="id_password">Password:</label>
     </div>
-    <div class="wishit_link text-center">
+    <div class="health_link text-center">
       <a href="{% url 'internalAuth:password_reset' %}"><i>Forgot Password?</i></a>
     </div>
     <button class="btn btn-primary" type="submit">Log In</button>
   </form>
-  <div class="wishit_link text-center">
+  <div class="health_link text-center">
     <a href="{% url 'externalAuth:begin' 'auth0' %}"><i>Use external identity provider</i></a>
   </div>
 </div>

@@ -1,0 +1,36 @@
+{% extends 'health_base.html' %}
+
+{% block content %}
+
+    <div class="col-12 py-4 title">
+        <h2>
+            YOUR PATIENTS
+        </h2>
+    </div>
+
+    <div class="index col-12 col-sm-12 col-md-6 col-lg-4">
+        <a class="mt-2" href="{% url 'doctor:addIndex'  %}">
+            <div class="rounded text-center content-box add m-1 p-5">
+                <h3>Add patient</h3>
+                <span class="mt-2 details-button">Let's go!</span>
+            </div>
+        </a>
+    </div>
+    
+    <!-- DIVIDER -->
+    <div class="divider col-12"></div>
+
+    {% if patients %}
+        {% for patient in patients %}
+            <div class="index col-12 col-sm-12 col-md-6 col-lg-4">
+                <div class="rounded text-center content-box m-1 p-5">
+                    <h3>{{ patient.username }}</h3>
+                    <p>{{ patient.email }}</p>
+                    <a class="mt-2" href="{% url 'health:indexPatient' patient.pk %}">
+                        <span class="mt-2 details-button">View Data</span>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

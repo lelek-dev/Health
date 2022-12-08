@@ -1,0 +1,26 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        {% if breadcrumb %}
+            <li class="breadcrumb-item" aria-current="page">
+                <a href="{% url 'health:index' %}">
+                    Personal
+                </a>
+                </li>
+            {% for bc in breadcrumb %}
+                {% if not forloop.last %}
+                <li class="breadcrumb-item" aria-current="page">
+                    <a href="{% url 'health:indexRecord' bc.pk %}">
+                        {{bc.title}}
+                    </a>
+                </li>
+                {% else %}
+                <li class="breadcrumb-item active" aria-current="page">
+                        {{bc.title}}
+                </li>
+                {% endif %}
+            {% endfor %}   
+        {% else %}
+            <li class="breadcrumb-item active" aria-current="page">Personal</li>       
+        {% endif %}
+    </ol>
+</nav>
