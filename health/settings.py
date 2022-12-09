@@ -45,12 +45,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'social_django',
     'externalAuth',
     'internalAuth',
     'healthRecords',
     'doctor',
     'health',
-    'social_django'
+    'logger'
 ]
 
 MIDDLEWARE = [
@@ -62,6 +63,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'internalAuth.middleware.ProtectedRoutes',
+    'logger.middleware.SaveRequest'
 ]
 
 ROOT_URLCONF = 'health.urls'
@@ -184,19 +186,3 @@ LOGIN_REQUIRED_URLS = (
     r'/health/(.*)$',
 )
 LOGIN_REQUIRED_URLS_EXCEPTIONS = ()
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'file': {
-            'class': 'logging.FileHandler',
-            'filename': 'general.log',
-            'level': 'INFO',
-        },
-    },
-    'root': {
-        'handlers': ['file'],
-        'level': 'INFO',
-    },
-}
