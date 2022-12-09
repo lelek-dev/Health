@@ -10,6 +10,21 @@
         <div class="rounded content-box m-1 p-5">  
             <h4>{{record.title}}</h4>
             <p>{{record.description}}</p>
+
+            {% if files %}
+            <div class="images row align-items-center justify-content-center">
+                {% for file in files %}
+                <div class="col-6 col-md-3 col-lg-2 p-2 d-flex img_container justify-content-center align-items-center">
+                    <a target="_blank" href="/media/{{file.media}}">
+                        <img class="rounded preview-image" src="/media/{{file.media}}" width="100%"/> 
+                    </a>      
+                </div>      
+                </a>    
+                {% endfor %}
+            </div>     
+            {% endif %}
+
+
             {% include 'timestamps.html' with created=record.created updated=record.updated %}
         </div>
     </div>

@@ -12,6 +12,7 @@ urlpatterns = [
 
     path('record/<int:pkFolder>', views.IndexViewRecord, name='indexRecord'),
     path('record/create/<int:pkFolder>', views.CreateViewRecord, name='createRecord'),
+    path('record/update/<int:pkRecord>/media/delete/<int:pkMedia>', views.DeleteViewMedia, name='deleteMedia'),
     path('record/update/<int:pkRecord>', views.UpdateViewRecord, name='updateRecord'),
     path('record/delete/<int:pkRecord>', views.DeleteViewRecord, name='deleteRecord'),
 

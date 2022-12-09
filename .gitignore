@@ -5,3 +5,4 @@ sent_emails/*
 */migrations/*
 general.log
 media
+.scannerwork

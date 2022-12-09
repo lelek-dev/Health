@@ -1,4 +1,4 @@
-from .models import HealthRecordFolder, HealthRecord, UserHealthRecordSharing
+from .models import HealthRecordFolder, HealthRecord, HealthRecordMedia
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import HealthRecordFolderForm, HealthRecordForm, ShareHealthRecordForm
@@ -82,11 +82,14 @@ def CreateViewRecord(request, pkFolder):
         return send_400() 
     if request.method == 'POST':
         form = HealthRecordForm(request.POST, request.FILES)
-        files = request.FILES.getlist('media')
+        files = request.FILES.getlist('file_field')
         if form.is_valid():                   
-            record = HealthRecord(title = form.cleaned_data['title'], description = form.cleaned_data['description'], folder = folder, media = form.cleaned_data['media'])
+            record = HealthRecord(title = form.cleaned_data['title'], description = form.cleaned_data['description'], folder = folder)
             record.save()
-            return HttpResponseRedirect(reverse('health:indexRecord', args=[folder.pk]))
+            for file in files:
+                media = HealthRecordMedia(record=record, media=file)
+                media.save()
+            return HttpResponseRedirect(reverse('health:updateRecord', args=[record.pk]))
     else:
         form = HealthRecordForm()
     return render(request, 'record/create.html', {'form': form, 'folder': folder, 'breadcrumb': getBreadCrumb({"title": 'create'}, folder)})
@@ -96,15 +99,29 @@ def UpdateViewRecord(request, pkRecord):
     if record.folder.owner != request.user:
         return send_400()    
     if request.method == 'POST':
-        form = HealthRecordForm(request.POST)
+        form = HealthRecordForm(request.POST, request.FILES)
+        files = request.FILES.getlist('file_field')
         if form.is_valid():               
             record.title = form.cleaned_data['title']
             record.description = form.cleaned_data['description']
             record.save()
-            return HttpResponseRedirect(reverse('health:indexRecord', args=[record.folder.pk]))
+            for file in files:
+                media = HealthRecordMedia(record=record, media=file)
+                media.save()
+            return HttpResponseRedirect(reverse('health:updateRecord', args=[record.pk]))
     else:
         form = HealthRecordForm(instance=record)
-    return render(request, 'record/update.html', {'form': form, 'record': record, 'folder': record.folder, 'breadcrumb': getBreadCrumb(record, record.folder)})
+        files = HealthRecordMedia.objects.filter(record=record)
+    return render(request, 'record/update.html', {'form': form, 'record': record, 'folder': record.folder, 'files': files, 'breadcrumb': getBreadCrumb(record, record.folder)})
+
+def DeleteViewMedia(request, pkRecord, pkMedia):
+    record = get_object_or_404(HealthRecord, pk=pkRecord)
+    if record.folder.owner == request.user:
+                
+        media = HealthRecordMedia.objects.filter(pk=pkMedia, record=record)
+        media.delete()
+        return HttpResponseRedirect(reverse('health:updateRecord', args=[pkRecord]))          
+    return send_400()
 
 def DeleteViewRecord(request, pkRecord):
     record = get_object_or_404(HealthRecord, pk=pkRecord)
@@ -146,14 +163,16 @@ def IndexViewPatient(request, pkUser):
 def IndexViewPatientRecord(request, pkUser, pkRecord):
     patient = Patients.objects.get(user=pkUser, doctor=request.user)
     shared = ShareRecordDoctor.objects.get(patient=patient, record=pkRecord)
-    record = HealthRecord.objects.get(pk = shared.record.pk)
-    return render(request, 'share/detail.html', {'record': record})
+    record = HealthRecord.objects.get(pk = shared.record.pk)    
+    files = HealthRecordMedia.objects.filter(record=record)
+    return render(request, 'share/detail.html', {'record': record, 'files': files})
 
 @user_passes_test(is_doctor)
 def CreateViewPatientRecord(request, pkUser):
     patient = Patients.objects.get(user=pkUser, doctor=request.user)
     if request.method == 'POST':
         form = HealthRecordForm(request.POST, request.FILES)
+        files = request.FILES.getlist('file_field')
         if form.is_valid():
             title = "Doctor Records: " + request.user.username
             folder = HealthRecordFolder.objects.filter(owner = patient.user, title = title)
@@ -162,9 +181,12 @@ def CreateViewPatientRecord(request, pkUser):
                 folder.save()  
             else:
                 folder = folder[0] 
-            record = HealthRecord(title = form.cleaned_data['title'], description = form.cleaned_data['description'], folder = folder, media = form.cleaned_data['media'])
+            record = HealthRecord(title = form.cleaned_data['title'], description = form.cleaned_data['description'], folder = folder)
             record.save()
-
+            for file in files:
+                media = HealthRecordMedia(record=record, media=file)
+                media.save()
+                
             if not ShareRecordDoctor.objects.filter(patient = patient, record = record).exists():
                 share = ShareRecordDoctor(patient = patient, record = record)
                 share.save()

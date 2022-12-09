@@ -16,7 +16,8 @@ class HealthRecordFolderForm(forms.ModelForm):
 class HealthRecordForm(forms.ModelForm):
     class Meta:
         model=HealthRecord
-        fields=('title','description', 'media')
+        fields=('title','description')
+    file_field = forms.FileField(required=False,widget=forms.ClearableFileInput(attrs={'multiple': True}))
     template_name = "form_snippet.html"
     def __init__(self, *args, **kwargs):
         super(HealthRecordForm, self).__init__(*args, **kwargs)

@@ -8,7 +8,7 @@
     <div class="col-12 col-sm-12 col-md-12 col-lg-8">
         <h2>Add a new record</h2>
         <div class="rounded content-box m-1 p-5"> 
-            <form action="{% url 'health:createRecord' folder.id %}" method="post">                
+            <form action="{% url 'health:createRecord' folder.id %}" method="post" enctype="multipart/form-data">                
                 {% csrf_token %}
                     {{ form }}
                 <input class="btn btn-primary" type="submit" value="Submit">
