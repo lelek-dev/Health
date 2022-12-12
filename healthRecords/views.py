@@ -133,7 +133,6 @@ def DeleteViewRecord(request, pkRecord):
 # Share
 def ShareViewRecord(request, pkRecord):
     record = get_object_or_404(HealthRecord, pk=pkRecord)
-    print(pkRecord)
     if record.folder.owner != request.user:
         return send_400()    
     if request.method == 'POST':
@@ -202,7 +201,7 @@ def CreateViewPatientRecord(request, pkUser):
 def getBreadCrumb(item, parent=None):
     breadcrumb = list()
     breadcrumb.append(item)
-    while (parent != None):
+    while (parent is not None):
         breadcrumb.append(parent)
         parent = parent.parent
     breadcrumb.reverse()

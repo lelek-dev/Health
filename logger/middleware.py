@@ -10,17 +10,28 @@ class SaveRequest:
             '/accounts',
             '/externalAuth',
             '/admin',
+        ]
+        self.prefixsAnonymous = [
             '/dataprivacy'
+        ]
+        self.prefixsSensible = [
+            '/health',
         ]
 
     def __call__(self, request):
+        sensible = False
+        anonymous = False
         _t = time.time() # Calculated execution time.
         response = self.get_response(request) # Get response from view function.
         _t = int((time.time() - _t)*1000)    
 
         # If the url does not start with on of the prefixes above, then return response and dont save log.
         # (Remove these two lines below to log everything)
-        if not list(filter(request.get_full_path().startswith, self.prefixs)): 
+        if list(filter(request.get_full_path().startswith, self.prefixsSensible)): 
+            sensible = True
+        elif list(filter(request.get_full_path().startswith, self.prefixsAnonymous)): 
+            anonymous = True
+        elif not list(filter(request.get_full_path().startswith, self.prefixs)): 
             return response 
 
         # Create instance of our model and assign values
@@ -28,9 +39,7 @@ class SaveRequest:
             endpoint=request.get_full_path(),
             response_code=response.status_code,
             method=request.method,
-            remote_address=self.get_client_ip(request),
             exec_time=_t,
-            body_response=str(response.content),
             body_request=str(request.body)
         )
 
@@ -38,6 +47,11 @@ class SaveRequest:
         if request.user.pk:
             request_log.user = request.user
 
+        if not sensible:
+            request_log.body_response=str(response.content)
+        if not anonymous:
+            request_log.remote_address=self.get_client_ip(request)
+            
         # Save log in db
         request_log.save() 
         return response
