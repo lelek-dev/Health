@@ -17,12 +17,12 @@
       <label for="id_password">Password:</label>
     </div>
     <div class="health_link text-center">
-      <a href="{% url 'internalAuth:password_reset' %}"><i>Forgot Password?</i></a>
+      <a href="{% url 'internalAuth:password_reset' %}"><em>Forgot Password?</em></a>
     </div>
     <button class="btn btn-primary" type="submit">Log In</button>
   </form>
   <div class="health_link text-center">
-    <a href="{% url 'externalAuth:begin' 'auth0' %}"><i>Use external identity provider</i></a>
+    <a href="{% url 'externalAuth:begin' 'auth0' %}"><em>Use external identity provider</em></a>
   </div>
 </div>
 {% endblock %}

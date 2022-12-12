@@ -36,11 +36,11 @@ class SaveRequest:
 
         # Create instance of our model and assign values
         request_log = Request(
-            endpoint=request.get_full_path(),
+            endpoint=request.get_full_path()[:99],
             response_code=response.status_code,
             method=request.method,
             exec_time=_t,
-            body_request=str(request.body)
+            #body_request=str(request.body)
         )
 
         # Assign user to log if it's not an anonymous user

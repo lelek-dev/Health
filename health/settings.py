@@ -33,8 +33,7 @@ SECRET_KEY = env("SECRET_KEY")
 DEBUG = True
 if DEBUG is not True:
     SECURE_SSL_REDIRECT = True
-else:
-    SECURE_SSL_REDIRECT = False
+    SESSION_COOKIE_SECURE = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -48,7 +47,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
     'social_django',
     'externalAuth',
     'internalAuth',
@@ -167,14 +165,6 @@ STATICFILES_DIRS = (
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
-}
 
 AUTH_USER_MODEL = "internalAuth.HealthUser"
 
