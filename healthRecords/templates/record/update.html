@@ -11,25 +11,42 @@
 
     <div class="col-12 col-sm-12 col-md-9 col-lg-6 col-xl-6">
         <div class="rounded content-box m-1 p-5">  
-            <form action="{% url 'health:updateRecord' record.id %}" method="post">
+            <form action="{% url 'health:updateRecord' record.id %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form }}
+
+                {% if files %}
+                <div class="images row align-items-center justify-content-center">
+                    {% for file in files %}
+                    <div class="col-6 col-md-3 col-lg-2 p-2 d-flex img_container justify-content-center align-items-center">
+                        <a target="_blank" href="/media/{{file.media}}">
+                            <img alt="Health" class="rounded preview-image" src="/media/{{file.media}}" width="100%"/> 
+                        </a>
+                        <a href="{% url 'health:deleteMedia' record.id file.id %}" class="trash">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                                <path fill="#ffffff" d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                            </svg>
+                        </a>       
+                    </div>      
+                    </a>    
+                    {% endfor %}
+                </div>     
+                {% endif %}
 
                 {% include 'timestamps.html' with created=folder.created updated=folder.updated %}
 
                 <input class="btn btn-primary mt-3" type="submit" value="Submit">
             </form>
+
             <div class="delete-box">
-                <a href="{% url 'health:deleteRecord' record.id %}">
-                    <button class="btn btn-delete">
-                        DELETE
-                    </button>
-                </a>
-            </div>
-            <div class="delete-box text-start">
                 <a href="{% url 'health:shareRecord' record.id %}">
                     <button class="btn btn-primary">
                         SHARE
+                    </button>
+                </a>
+                <a href="{% url 'health:deleteRecord' record.id %}">
+                    <button class="btn btn-delete">
+                        DELETE
                     </button>
                 </a>
             </div>

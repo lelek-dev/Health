@@ -38,11 +38,11 @@ a:active { text-decoration: none; }
 nav.navbar {
     background-color: var(--color-third);
 }
-.nav-link {
+ul .nav-link {
     color: var(--color-primary);
     transition: color .3s ease-in-out, background-color .3s ease-in-out;
   }
-.nav-link:focus, .nav-link:hover, .nav-link.active {
+ul .nav-link:focus, ul .nav-link:hover, ul .nav-link.active {
     background-color: var(--color-secondary);
     color: white;
   }
@@ -270,3 +270,35 @@ input:focus:-khtml-autofill {
     color: #bdc2c9;
 }
 /* OFFERS END */
+
+/* DELETE IMAGES START */
+.images .preview-image {
+    transition: all 0.5s ease;
+}
+.images .img_container {
+    position: relative;
+}
+.images .trash {
+    position: absolute;
+    cursor: pointer;
+    top: 0px;
+    right: 0px;
+    width: 20px;
+    height: 20px;
+    padding: 5px;
+    background-color: gray;
+    border: 1px solid darkgray;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* DELETE IMAGES END */
+/* FORMS */
+textarea.form-control {
+    min-height: 100px!important;
+}
+
+.breadcrumb a {
+    color: var(--color-primary);
+}

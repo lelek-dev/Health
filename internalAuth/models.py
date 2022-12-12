@@ -3,7 +3,6 @@ from django.contrib.auth.models import AbstractUser
 import uuid
 
 class HealthUser(AbstractUser):
-    pass
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
 
     def __str__(self):

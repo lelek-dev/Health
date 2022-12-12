@@ -31,6 +31,9 @@ SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+if DEBUG is not True:
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -44,13 +47,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
+    'social_django',
     'externalAuth',
     'internalAuth',
     'healthRecords',
     'doctor',
     'health',
-    'social_django'
+    'logger'
 ]
 
 MIDDLEWARE = [
@@ -62,6 +65,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'internalAuth.middleware.ProtectedRoutes',
+    'logger.middleware.SaveRequest'
 ]
 
 ROOT_URLCONF = 'health.urls'
@@ -162,14 +166,6 @@ STATICFILES_DIRS = (
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
-}
-
 AUTH_USER_MODEL = "internalAuth.HealthUser"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media') 
@@ -184,19 +180,3 @@ LOGIN_REQUIRED_URLS = (
     r'/health/(.*)$',
 )
 LOGIN_REQUIRED_URLS_EXCEPTIONS = ()
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'file': {
-            'class': 'logging.FileHandler',
-            'filename': 'general.log',
-            'level': 'INFO',
-        },
-    },
-    'root': {
-        'handlers': ['file'],
-        'level': 'INFO',
-    },
-}

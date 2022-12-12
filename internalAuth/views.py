@@ -10,10 +10,6 @@ from django.contrib.auth.views import PasswordResetView
 from django.contrib.messages.views import SuccessMessageMixin
 from doctor.views import send_400
 
-import logging
-
-logger = logging.getLogger(__name__)
-
 class SignUpView(CreateView):
     form_class = HealthUserCreationForm
     success_url = reverse_lazy("login")

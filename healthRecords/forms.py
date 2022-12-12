@@ -1,6 +1,7 @@
 from django import forms
 from .models import HealthRecordFolder, HealthRecord
 from django.core import validators
+from django.core.validators import FileExtensionValidator
 
 class HealthRecordFolderForm(forms.ModelForm):
     class Meta:
@@ -16,7 +17,8 @@ class HealthRecordFolderForm(forms.ModelForm):
 class HealthRecordForm(forms.ModelForm):
     class Meta:
         model=HealthRecord
-        fields=('title','description', 'media')
+        fields=('title','description')
+    file_field = forms.FileField(required=False,widget=forms.ClearableFileInput(attrs={'multiple': True}), validators=[FileExtensionValidator( ['pdf', 'jpg', 'png', 'jpeg', 'webp'] ) ])
     template_name = "form_snippet.html"
     def __init__(self, *args, **kwargs):
         super(HealthRecordForm, self).__init__(*args, **kwargs)

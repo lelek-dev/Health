@@ -2,7 +2,7 @@
     {% for error in field.errors %}
         {{error}}
     {% endfor %} 
-    <div class="form-floating mb-3">        
+    <div class="{% if field.html_name != 'dataprivacy' %}form-floating {% endif %}mb-3">        
         {{ field }}
         {{field.label_tag}}
     </div>

@@ -7,7 +7,7 @@
             {% load doctor_tags %}
             {% if user|is_group:"Doctor" %}
                 <div class="col-12 p-2">
-                    <b>Share the following link with your patients. You can manually add every patient who accepts this invite to your patients.</b> 
+                    <strong>Share the following link with your patients. You can manually add every patient who accepts this invite to your patients.</strong> 
                     http://127.0.0.1:8000{% url 'doctor:invite' user.uuid %}
                 </div>
             {% endif %}

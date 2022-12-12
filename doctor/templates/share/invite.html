@@ -9,7 +9,7 @@
     <div class="col-12 col-sm-12 col-md-9 col-lg-6 col-xl-6">
         <div class="rounded content-box m-1 p-5">  
             <form action="{% url 'doctor:invite' uuid %}" method="post">
-                <p><b>Doctor: </b>{{doctor.username}}</p>
+                <p><strong>Doctor: </strong>{{doctor.username}}</p>
                 {% csrf_token %}
                 {{ form }}
 
